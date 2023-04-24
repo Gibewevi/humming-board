@@ -1,0 +1,14 @@
+HUMMINGBOARD
+
+    - curseur de pair sur le coté gauche (ex RLC-USDT,ETH-USDT)
+    - curseur bot profit croissant/décroissant
+
+    BOTS
+    - bouton update a droite
+    - possibilité de rajouter des informations sur le band viewer bot
+    - mettre un bot de test pour tous les nouveaux utilisateurs pour qu'ils puissent tester le dashboard
+    - limité à 5 bots 4.99$/mois
+    - limité = 10 bots 9,99$/mois
+
+    POTSGRES users
+    - metamask_address, abonnement
