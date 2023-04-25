@@ -11,4 +11,13 @@ HUMMINGBOARD
     - limité = 10 bots 9,99$/mois
 
     POTSGRES users
-    - metamask_address, abonnement
+    - id, metamask_address, abonnement
+
+    POSTGRES bots
+    - id(int), id_user(int), strategy(text), market(text), symbol(text), base_asset(text), quote_asset(text),config_file_path(text)
+
+    POSTGRES orders
+    - id, bot_id, timestamp, trade_type, order_type, price, amount, leverage
+
+    POSTGRES trades_fees
+    - id, bot_id, fee_type, percent, percent_token, flat_fees
