@@ -21,3 +21,17 @@ HUMMINGBOARD
 
     POSTGRES trades_fees
     - id, bot_id, fee_type, percent, percent_token, flat_fees
+
+FEATURES
+
+    - partage de bots (feature payante pour consulter)
+    - copier coller le code du fichier de configurationd du bot
+    - importer le  fichier de configuration du bot en même temps que l'upload csv
+    - like bots
+    - possibilité de voir la configuration du bot
+    - possibilité de passer sur un abonnement mensuel (5bots/10bots)
+    - un bot gratuit par utilisateur
+
+    - afficher les bots par rentabilité
+    - afficher les bots par stratégie
+    - possibilité de mettre des commentaires
