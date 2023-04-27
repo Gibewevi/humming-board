@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header/Header';
 import Dashboard from '@/containers/Dashboard';
-import Sidebar from '@/components/dashboard/sidebar/Sidebar';
+import Layout from '@/components/layout';
 const Home = () => {
 
 
   return (
     <div className='flex flex-col min-h-screen'>
-      <Header />
-      <Sidebar />
+      <Layout />
       <Dashboard />
     </div>
   );

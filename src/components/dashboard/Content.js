@@ -3,7 +3,7 @@ export default function Content(){
     return(
         <div className="w-full">
             <p className="text-xl">App Dashboard</p>
-            {/* Page a afficher */}
+            {/* Page a afficher en fonction des menus*/}
             <BotsPanel />
         </div>  
     )

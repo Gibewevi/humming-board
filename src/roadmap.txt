@@ -35,3 +35,19 @@ FEATURES
     - afficher les bots par rentabilité
     - afficher les bots par stratégie
     - possibilité de mettre des commentaires
+
+27/04/2023
+
+    -> animation slide vers la gauche pour new bot
+        -> bouton new Bots qui se transforme en valider puis repasse en new bot
+        -> toast pour valider l'import de bot/ou erreur
+
+    -> Wallet
+        -> Ajouter les tokens des pairs importer par le csv dans le Wallet
+            -> vérifier si la paire existe 
+            -> sinon rajouter la paire
+    
+    -> theme jour/nuit
+    -> bug sidebar qui ne descend pas jusqu'en bas
+
+    -> mes bots -> essayer sous forme de cards verticales
