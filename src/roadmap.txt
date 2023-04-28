@@ -11,4 +11,43 @@ HUMMINGBOARD
     - limité = 10 bots 9,99$/mois
 
     POTSGRES users
-    - metamask_address, abonnement
+    - id, metamask_address, abonnement
+
+    POSTGRES bots
+    - id(int), id_user(int), strategy(text), market(text), symbol(text), base_asset(text), quote_asset(text),config_file_path(text)
+
+    POSTGRES orders
+    - id, bot_id, timestamp, trade_type, order_type, price, amount, leverage
+
+    POSTGRES trades_fees
+    - id, bot_id, fee_type, percent, percent_token, flat_fees
+
+FEATURES
+
+    - partage de bots (feature payante pour consulter)
+    - copier coller le code du fichier de configurationd du bot
+    - importer le  fichier de configuration du bot en même temps que l'upload csv
+    - like bots
+    - possibilité de voir la configuration du bot
+    - possibilité de passer sur un abonnement mensuel (5bots/10bots)
+    - un bot gratuit par utilisateur
+
+    - afficher les bots par rentabilité
+    - afficher les bots par stratégie
+    - possibilité de mettre des commentaires
+
+27/04/2023
+
+    -> animation slide vers la gauche pour new bot
+        -> bouton new Bots qui se transforme en valider puis repasse en new bot
+        -> toast pour valider l'import de bot/ou erreur
+
+    -> Wallet
+        -> Ajouter les tokens des pairs importer par le csv dans le Wallet
+            -> vérifier si la paire existe 
+            -> sinon rajouter la paire
+    
+    -> theme jour/nuit
+    -> bug sidebar qui ne descend pas jusqu'en bas
+
+    -> mes bots -> essayer sous forme de cards verticales

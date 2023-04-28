@@ -3,20 +3,14 @@ import csv from 'csv-parser';
 import { Readable } from 'stream';
 
 
-// je récupère le fichier csv
-// je le parse pour traiter les trades
-// j'envoies l'objet trade pour inserer les valeurs dans la BDD
-
-const uploadCsv = async (req) => {
-  const trades = await parseCSV(req);
-  csvModel.insertTrades(trades);
+const createBotWithCSV = async(req,res) => {
+    const trades = await parseCSV(req);
+    console.log('trades : ', trades);
+    const bot_id = await csvModel.insertBot(trades[0]);
+    console.log('le bot est bien inséré dans la base de donnée');
+    await csvModel.insertOrders(trades, bot_id);
+    console.log('les ordres sont bien insérés dans la base de donnée');
 }
-
-const insertTrades = async (trades) => {
-  // csvModel.insertTrades(trades);
-}
-
-
 
 const parseCSV = (req) => {
   return new Promise((resolve, reject) => {
@@ -69,5 +63,5 @@ const parseCSV = (req) => {
 
 export const csvController = {
   parseCSV,
-  uploadCsv
+  createBotWithCSV
 }
