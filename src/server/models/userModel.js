@@ -46,13 +46,16 @@ const isUserExist = async (metamask_address) => {
     const req = 'SELECT id FROM users WHERE metamask_address = $1';
     const value = [metamask_address];
     const res = await client.query(req, value);
-    return res.rows.length > 0 ? true : false;
+    if(res.rows.length > 0){
+      return res.rows[0].id;
+    } else return false;
   } catch (error) {
     console.error(error);
   } finally {
     client.release();
   }
 }
+
 
 
 

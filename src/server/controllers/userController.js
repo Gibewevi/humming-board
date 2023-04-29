@@ -4,13 +4,15 @@ const metamaskAuthentification = async (metamask_address) => {
   try {
     const isUserExist = await userModel.isUserExist(metamask_address);
     if (isUserExist) {
-      console.log('l\'utilisateur existe déjà.');
-      return true;
+      console.log('L\'utilisateur existe déjà');
+      const user_id = isUserExist;
+      return {user_id : user_id, metamask_address : metamask_address};
     } else {
-      console.log('création de l\'utilisateur');
+      console.log('Création de l\'utilisateur');
       const user_id = await userModel.insertUser(metamask_address);
-      console.log('création du wallet de l\'utilisateur');
+      console.log('Création du wallet de l\'utilisateur');
       await userModel.createWallet(user_id);
+      return {user_id : user_id, metamask_address : metamask_address};
     }
   } catch (error) {
     console.error(error);

@@ -1,5 +1,17 @@
 import pool from './model';
 
+const getWalletAssets = async(user_id) => {
+    let client;
+    try {
+        client = await pool.connect();
+        const req = 'SELECT '
+    } catch(error){
+        console.error(error);
+    } finally{
+        client.release();
+    }
+}
+
 const getOrdersByBotId = async(bot_id) => {
     let client;
     try {

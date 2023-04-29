@@ -2,14 +2,13 @@ import { csvModel } from '../models/csvModel';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
 
-
 const createBotWithCSV = async(req,res) => {
-    const trades = await parseCSV(req);
-    console.log('trades : ', trades);
-    const bot_id = await csvModel.insertBot(trades[0]);
-    console.log('le bot est bien inséré dans la base de donnée');
-    await csvModel.insertOrders(trades, bot_id);
-    console.log('les ordres sont bien insérés dans la base de donnée');
+    const user_id = parseInt(req.headers.user_id);
+    const orders = await parseCSV(req);
+    const bot_id = await csvModel.insertBot(user_id, orders[0]);
+    const assets = await csvModel.getAssetsFromBot_id(bot_id);
+    await csvModel.insertAssetsInWallet(user_id, assets);
+    await csvModel.insertOrders(orders, bot_id);
 }
 
 const parseCSV = (req) => {

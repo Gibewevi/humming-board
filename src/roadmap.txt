@@ -24,7 +24,7 @@ HUMMINGBOARD
 
 FEATURES
 
-    - partage de bots (feature payante pour consulter)
+    - partage de bots (feature payante pour consulter) -> (table share_bots) -> et ensuite aller chercher les infos par id_bot dans la table bots.
     - copier coller le code du fichier de configurationd du bot
     - importer le  fichier de configuration du bot en même temps que l'upload csv
     - like bots

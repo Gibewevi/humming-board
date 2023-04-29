@@ -8,7 +8,6 @@ export default function MyBots() {
 
     const handleNewBot = () => {
         setNewBot(!newBot);
-        console.log(newBot);
     }
 
     return (
