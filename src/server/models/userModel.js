@@ -1,23 +1,6 @@
 import model from './model';
 import pool from './model';
 
-
-const createWallet = async (user_id) => {
-  let client;
-  try {
-    client = await pool.connect();
-    await client.query('BEGIN');
-    const req = 'INSERT INTO wallets (user_id) VALUES($1)';
-    const value = [user_id];
-    await client.query(req, value);
-    await client.query('COMMIT');
-  } catch (error) {
-    console.error(error);
-  } finally {
-    client.release();
-  }
-}
-
 const insertUser = async (metamask_address) => {
   let client;
   try {
@@ -28,8 +11,6 @@ const insertUser = async (metamask_address) => {
     const res = await client.query(req, value);
     const userId = res.rows[0].id;
     await client.query('COMMIT'); // Ajoutez cette ligne pour confirmer la transaction
-    // return 1
-    console.log('userId : ', userId);
     return userId;
   } catch (error) {
     console.error(error);
@@ -57,11 +38,8 @@ const isUserExist = async (metamask_address) => {
 }
 
 
-
-
 const getAllUsers = async () => {
   try {
-    console.log('userModel getAllUsers');
     const result = await model.query('SELECT * FROM users');
     return result.rows;
   } catch (error) {
@@ -74,5 +52,4 @@ export const userModel = {
   getAllUsers,
   isUserExist,
   insertUser,
-  createWallet,
 };
