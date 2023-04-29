@@ -18,19 +18,18 @@ const createWallet = async (user_id) => {
 
 const insertAssetsInWallet = async (user_id, assets) => {
   let client;
-console.log('wallet model : ', user_id)
-console.log('wallet model : ', assets)
   try {
     client = await pool.connect();
 
     // Insérer tous les assets en une seule requête avec une jointure et la clause UNNEST
     const query = `
-        INSERT INTO wallet_assets (wallet_id, asset, amount)
-        SELECT w.id, a.asset, 1000
-        FROM wallets w, UNNEST($2::TEXT[]) as a(asset)
-        WHERE w.user_id = $1
-        ON CONFLICT (wallet_id, asset) DO NOTHING
-      `;
+    INSERT INTO wallet_assets (wallet_id, asset, amount)
+    SELECT w.id, a.asset, 1000
+    FROM wallets w, UNNEST($2::TEXT[]) as a(asset)
+    WHERE w.user_id = $1
+    ON CONFLICT (wallet_id, asset) DO UPDATE SET
+      amount = wallet_assets.amount + EXCLUDED.amount
+  `;
 
     await client.query(query, [user_id, assets]);
   } catch (error) {
@@ -40,28 +39,28 @@ console.log('wallet model : ', assets)
   }
 }
 
-const getAssetsFromUser_id = async (user_id) => {
+const getAssetsFromUserId = async (user_id) => {
   let client;
   try {
-      client = await pool.connect();
-      const req = `
+    client = await pool.connect();
+    const req = `
       SELECT wa.asset, wa.amount
       FROM wallet_assets wa
-      JOIN wallet w ON wa.wallet_id = w.id
+      JOIN wallets w ON wa.wallet_id = w.id
       WHERE w.user_id = $1
     `;
-      const res = client.query(req, [user_id]);
-      console.log('assets : ', res.rows);
-      return await res.rows;
+    const res = await client.query(req, [user_id]);
+    return res.rows;
   } catch (error) {
-
+    console.error(error);
+    throw error;
   } finally {
-
+    client.release();
   }
 }
 
 export const walletModel = {
   createWallet,
   insertAssetsInWallet,
-  getAssetsFromUser_id
-}
+  getAssetsFromUserId
+};

@@ -1,10 +1,12 @@
 import pool from './model';
 const insertBot = async (user_id, orders) => {
     let client;
+    const base_amount = 1000;
+    const quote_amount = 1000;
     try {
         client = await pool.connect();
         await client.query('BEGIN');
-        const req = 'INSERT INTO bots (user_id, strategy, market, symbol, base_asset, quote_asset, config_file_path) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id';
+        const req = 'INSERT INTO bots (user_id, strategy, market, symbol, base_asset, quote_asset, config_file_path, base_amount, quote_amount) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id';
         const values = [
             user_id,
             orders.strategy,
@@ -13,6 +15,8 @@ const insertBot = async (user_id, orders) => {
             orders.base_asset,
             orders.quote_asset,
             orders.config_file_path,
+            base_amount,
+            quote_amount,
         ];
         const result = await client.query(req, values);
         const bot_id = result.rows[0].id;

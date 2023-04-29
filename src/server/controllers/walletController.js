@@ -1,5 +1,10 @@
-import walletModel from "../models/walletModel"
+import {walletModel} from "../models/walletModel"
 
-export default walletController = {
+const getAssets = async(user_id) => {
+    const assets = await walletModel.getAssetsFromUserId(user_id);
+    return assets;
+}
 
+export const walletController = {
+    getAssets
 }

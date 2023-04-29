@@ -23,6 +23,7 @@ export default function MetamaskButton() {
                 headers: { 'Content-Type': 'application/json' },
             });
             const user = await response.json();
+           setAccount(user);
             return user;
         } catch (error) {
             console.error(error);

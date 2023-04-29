@@ -46,8 +46,17 @@ FEATURES
         -> Ajouter les tokens des pairs importer par le csv dans le Wallet
             -> vérifier si la paire existe 
             -> sinon rajouter la paire
+            -> modifier le base_amount et quote_amount du bot (soustraire la nouvelle valeur à l'ancienne et la soustraire du wallet pour avoir le bon montant)
+
+        -> modifier l'attribution des amounts dans le bot
+            -> additionné les pair pour avoir le total dans wallet 
+            -> rajouter le montant des pairs dans le bot avec deux tables 'base_amount, quote_amount'
+            -> reflechir au systeme dans sa globalité
     
     -> theme jour/nuit
     -> bug sidebar qui ne descend pas jusqu'en bas
 
     -> mes bots -> essayer sous forme de cards verticales
+
+    -> possibilité de vendre son bot (fees pour moi + transaction);
+    -> possibilité de transformer le bot en NFT pour en acquerir la propriété

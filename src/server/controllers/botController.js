@@ -71,6 +71,7 @@ const getUserIdFromRequest = (req) => {
     console.log('bot_id : ', bot_id);
     const assets = await getAssetsFromBotId(bot_id);
     console.log('assets : ', assets)
+    
     await walletModel.insertAssetsInWallet(user_id, assets);
     await botModel.insertOrders(orders, bot_id);
   }
