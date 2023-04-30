@@ -7,14 +7,16 @@ export default function Wallet() {
 
     const Assets = () => {
         if (assets) {
-            return assets.map((asset, key) => {
-                return (
-                    <div key={key} className="flex flex-row justify-between items-center text-lg">
-                        <p>{asset.asset}</p>
-                        <p>{asset.amount}</p>
-                    </div>
-                )
-            })
+            // return assets.map((asset, key) => {
+            //     console.log(asset);
+            //     return (
+            //         <tr key={key}>
+            //             <td>{asset.asset}</td>
+            //             <td>2.5%</td>
+            //             <td>356.26$</td>
+            //         </tr>
+            //     )
+            // })
         }
     }
 
@@ -35,8 +37,19 @@ export default function Wallet() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-y-5 p-5">
-            <Assets />
-        </div>
+        <table className="table-fixed w-full text-left border-separate border-spacing-2 border border-red-500 ">
+            <thead>
+                <tr className="">
+                    <th className="border border-cyan-400">asset</th>
+                    <th className="border border-cyan-400">start</th>
+                    <th className="border border-cyan-400">current</th>
+                    <th className="border border-cyan-400">P&L%</th>
+                    <th className="border border-cyan-400">P&L$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <Assets />
+            </tbody>
+        </table>
     )
 }

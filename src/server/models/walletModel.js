@@ -44,7 +44,7 @@ const getAssetsFromUserId = async (user_id) => {
   try {
     client = await pool.connect();
     const req = `
-      SELECT wa.asset, wa.amount
+      SELECT wa.asset
       FROM wallet_assets wa
       JOIN wallets w ON wa.wallet_id = w.id
       WHERE w.user_id = $1

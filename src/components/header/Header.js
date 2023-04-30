@@ -8,6 +8,7 @@ export default function Header(props) {
                 <h1 className=" font-satoshi text-xl">HummingBoard</h1>
             </div>
             <div className="flex flex-row justify-center items-center gap-x-5 list-none font-light font-satoshi text-md relative">
+                <li >Community</li>
                 <li >Market bot</li>
                 <li >Developers</li>
                 <li >Pricing</li>

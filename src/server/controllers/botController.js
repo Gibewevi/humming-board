@@ -64,18 +64,17 @@ const getUserIdFromRequest = (req) => {
   
   const createBotWithCSV = async (req, res) => {
     const user_id = getUserIdFromRequest(req);
-    console.log('user_id : ', user_id);
     const orders = await getOrdersFromCSV(req);
-    console.log('orders : ', orders);
     const bot_id = await createBot(user_id, orders);
-    console.log('bot_id : ', bot_id);
     const assets = await getAssetsFromBotId(bot_id);
-    console.log('assets : ', assets)
     
     await walletModel.insertAssetsInWallet(user_id, assets);
     await botModel.insertOrders(orders, bot_id);
   }
   
+const getOrdersByBotsId = async(bots) => {
+  return await botModel.getOrdersbyBotsId(bots);
+}
 const getOrdersByBotId = async(bot_id) => {
     return await botModel.getOrdersByBotId(bot_id);
 }
@@ -93,13 +92,48 @@ const getBotsOrdersByUserId = async(user_id) => {
     return bots;    
 }
 
+const getBasePLByBot = (bot) => {
+  const base_amount = parseInt(bot.base_amount);
+  let current_amount = parseInt(base_amount);
+  let pnl = 0;
+  let pnlPercent = 0;
+
+  bot.orders.map((order, key) => {
+    if(order.trade_type == 'SELL'){
+      const orderAmount = parseFloat(order.amount).toFixed(2);
+      const orderPrice = parseInt(order.price).toFixed(2);
+      current_amount += (order.amount)*(order.price);
+      console.log('--------------------')
+      console.log('base_amount : ', base_amount)
+      console.log('current_amount : ', current_amount)
+      console.log('orderAmount : ', orderAmount)
+      console.log('orderPrice : ', orderPrice)
+      console.log('--------------------')
+    }
+
+    pnl = current_amount - base_amount;
+    pnlPercent = ((current_amount - base_amount) / base_amount)*100;
+    console.log('pnl : ', pnl)
+    console.log('pnlPercent : ', pnlPercent)
+    return [base_amount, current_amount, pnl, pnlPercent];
+  })
+
+}
+const getPLByBotId = (bot) => {
+ // test avec le base pnl
+  const pnl = getBasePLByBot(bot);
+  console.log(pnl);
+}
+
 export const botController = {
     getBotsByUserID,
     getBotsOrdersByUserId,
     getOrdersByBotId,
+    getOrdersByBotsId,
     getUserIdFromRequest,
     getOrdersFromCSV,
     createBot,
     getAssetsFromBotId,
     createBotWithCSV,
+    getPLByBotId
 }

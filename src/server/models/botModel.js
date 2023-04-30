@@ -1,4 +1,5 @@
 import pool from './model';
+
 const insertBot = async (user_id, orders) => {
     let client;
     const base_amount = 1000;
@@ -56,17 +57,26 @@ const insertOrders = async (trades, bot_id) => {
     }
 }
 
-// const getWalletAssets = async(user_id) => {
-//     let client;
-//     try {
-//         client = await pool.connect();
-//         const req = 'SELECT '
-//     } catch(error){
-//         console.error(error);
-//     } finally{
-//         client.release();
-//     }
-// }
+const getOrdersbyBotsId = async(bots) => {
+    let client;
+    let botsResult = bots;
+    try {
+        client = await pool.connect();
+        await client.query('BEGIN');
+        const req = 'SELECT * FROM orders WHERE bot_id = $1';
+        for(const bot of bots){
+            const value = [bot.id];
+            const res = await client.query(req, value);
+            bot.orders = res.rows;
+        }
+        return botsResult;
+    } catch (error) {
+        console.error(error);
+    } finally {
+        client.release();
+    }
+}
+
 
 const getOrdersByBotId = async(bot_id) => {
     let client;
@@ -126,6 +136,7 @@ const getBotsByUserId = async (user_id) => {
 export const botModel = {
     getBotsByUserId,
     getOrdersByBotId,
+    getOrdersbyBotsId,
     getAssetsFromBotId,
     insertBot,
     insertOrders,
