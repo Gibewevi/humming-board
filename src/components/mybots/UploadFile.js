@@ -15,7 +15,6 @@ export default function UploadFile() {
 
         reader.onload = async (event) => {
             const fileContent = event.target.result;
-
             const res = await fetch('/api/upload', {
                 method: 'POST',
                 headers: {

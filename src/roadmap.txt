@@ -4,6 +4,10 @@
         -> bot_id symbol start_amount current_amount P&L% P&L$ *éditer*consulter
 
 
+    //code
+    wallet = {assets: [ETH,BTC,RLC]},{bots : [basePNL,quotePNL}]
+
+
 HUMMINGBOARD
 
     - curseur de pair sur le coté gauche (ex RLC-USDT,ETH-USDT)

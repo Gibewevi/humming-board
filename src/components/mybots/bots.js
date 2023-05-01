@@ -46,7 +46,7 @@ export default function Bots() {
                             <h2 className='text-white font-bold text-md'>{bot.symbol}</h2>
                             <p className="text-[#2F2F2F]">{bot.strategy}</p>
                         </div>
-                        <img src='CarbonShareKnowledge.svg' className="absolute top-2 right-2 w-[20px]" />
+                        <img src='CarbonUserMultiple.svg' className="absolute top-2 right-2 w-[15px]" />
                         <div className=" grow w-full">
                             <PLchart data={data} />
                         </div>

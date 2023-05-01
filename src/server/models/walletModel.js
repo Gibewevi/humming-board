@@ -50,7 +50,8 @@ const getAssetsFromUserId = async (user_id) => {
       WHERE w.user_id = $1
     `;
     const res = await client.query(req, [user_id]);
-    return res.rows;
+    const assets = res.rows.map(row => row.asset);
+    return assets;
   } catch (error) {
     console.error(error);
     throw error;
