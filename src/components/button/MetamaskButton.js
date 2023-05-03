@@ -11,20 +11,20 @@ export default function MetamaskButton() {
 
     const localMetamaskAddress = (account)=> {
         if(account){
-            const splitAddress = account.slice(0,12)+'...';
+            const splitAddress = account.metamask_address.slice(0,12)+'...';
             setAccountSlice(splitAddress);
         }
     }
 
     async function checkOrCreateUser(metamask_address) {
         try {
-            console.log('TRY checkOrCreateUser');
             const response = await fetch(`/api/login?metamask_address=${metamask_address}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
-            const res = await response.json();
-            console.log('res ', res);
+            const user = await response.json();
+           setAccount(user);
+            return user;
         } catch (error) {
             console.error(error);
         }
@@ -40,8 +40,8 @@ export default function MetamaskButton() {
                 }
             });
         const selectedAccount = accounts[0];
-        setAccount(accounts[0]);
-        await checkOrCreateUser(selectedAccount);
+        const user = await checkOrCreateUser(selectedAccount);
+        setAccount(user);
     }
 
     return (

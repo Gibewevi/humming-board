@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Layout from '@/components/layout';
+import { AuthContext } from '@/context/AuthProvider';
 
 export default function UploadFile() {
     const [file, setFile] = useState(null);
     const [csvData, setCsvData] = useState();
+    const {account} = useContext(AuthContext);
 
     // Fonction qui gère la soumission du formulaire
     const handleSubmit = async (e) => {
@@ -13,13 +15,13 @@ export default function UploadFile() {
 
         reader.onload = async (event) => {
             const fileContent = event.target.result;
-
             const res = await fetch('/api/upload', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'text/plain'
+                    'Content-Type': 'text/plain',
+                    'user_id': account.user_id
                 },
-                body: fileContent
+                body: fileContent,
             });
 
             const data = await res.json();
