@@ -7,7 +7,7 @@ const insertBot = async (user_id, orders) => {
     try {
         client = await pool.connect();
         await client.query('BEGIN');
-        const req = 'INSERT INTO bots (user_id, strategy, market, symbol, base_asset, quote_asset, config_file_path, base_amount, quote_amount) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id';
+        const req = 'INSERT INTO bots (user_id, strategy, market, symbol, base_asset, quote_asset, config_file_path, base_amount, quote_amount, shared) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id';
         const values = [
             user_id,
             orders.strategy,
@@ -18,6 +18,7 @@ const insertBot = async (user_id, orders) => {
             orders.config_file_path,
             base_amount,
             quote_amount,
+            false
         ];
         const result = await client.query(req, values);
         const bot_id = result.rows[0].id;

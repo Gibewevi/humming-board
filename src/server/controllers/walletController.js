@@ -28,7 +28,7 @@ const sortWalletByPairsAndAssets = (assets, bots) => {
                 asset.start_amount += localBot.amount; // Remplacé "amount" par "localBot.amount"
                 asset.current_amount += localBot.amount + (localBot.currentAmount - localBot.amount); // Remplacé "amount" et "currentAmount" par leurs équivalents dans "localBot"
                 asset.PNL = (asset.current_amount - asset.start_amount);
-                asset.PNLPercent = (asset.PNL / asset.start_amount) * 100;
+                asset.PNLPercent = ((asset.PNL / asset.start_amount) * 100).toFixed(2);
                 asset.bots.push(localBot);
             } else if (bot.quote_asset == pair) {
                 localBot = {
@@ -43,7 +43,7 @@ const sortWalletByPairsAndAssets = (assets, bots) => {
                 asset.start_amount += localBot.amount; // Remplacé "amount" par "localBot.amount"
                 asset.current_amount += localBot.amount + (localBot.currentAmount - localBot.amount); // Remplacé "amount" et "currentAmount" par leurs équivalents dans "localBot"
                 asset.PNL = asset.current_amount - asset.start_amount;
-                asset.PNLPercent = (asset.PNL / asset.start_amount) * 100; // Remplacé "asset.amount" par "asset.start_amount"
+                asset.PNLPercent = ((asset.PNL / asset.start_amount) * 100).toFixed(2); // Remplacé "asset.amount" par "asset.start_amount"
                 asset.bots.push(localBot);
             }
         }

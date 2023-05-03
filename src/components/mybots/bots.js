@@ -41,10 +41,10 @@ export default function Bots() {
         if (bots && Array.isArray(bots)) { // add a check to see if bots is defined and is an array
             return bots.map((bot, key) => {
                 return (
-                    <div key={key} className='flex flex-col gap-y-2 bg-[#131213] text-slate-400 p-3 rounded-sm mt-5 h-[300px] relative transition duration-900 ease-out hover:border hover:border-1 hover:border-[#dc1f30]  hover:scale-105'>
+                    <div key={key} className='flex flex-col gap-y-2 bg-[#1A1D1F] text-slate-400 p-3 rounded-sm mt-5 h-[300px] relative transition duration-900 ease-out hover:border hover:border-1 hover:border-[#dc1f30]  hover:scale-105'>
                         <div>
                             <h2 className='text-white font-bold text-md'>{bot.symbol}</h2>
-                            <p className="text-[#2F2F2F]">{bot.strategy}</p>
+                            <p className="text-[#535557]">{bot.strategy}</p>
                         </div>
                         <img src='CarbonUserMultiple.svg' className="absolute top-2 right-2 w-[15px]" />
                         <div className=" grow w-full">

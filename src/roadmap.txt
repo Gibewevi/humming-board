@@ -1,3 +1,16 @@
+ROADMAP
+    --> wallet 
+        * correction des anomalies PNL
+        * correction de la connexion Metasmask requise
+        * Ajout bouton consulter
+        * Ajout effect accordéon
+        * Ajout front-end (couleurs BG + hover)
+        * chart.JS pour la répartition du wallet
+        * charts (quote vs asset);
+        * revoir calcule repartition donuts (amount*price);
+
+    --> responsive/option? -> seulement icone dans la sidebar (réduire la largeur)
+
 --> My Wallet
     -> asset start_amount current_amount P&L% P&L$
         -> bot_id symbol start_amount current_amount P&L% P&L$ *éditer*consulter
