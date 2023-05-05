@@ -8,6 +8,10 @@ export default function MyWallet(){
     const [assets, setAssets] = useState([]);
     const { account } = useContext(AuthContext);
 
+    useEffect(()=>{
+console.log(assets);
+    },[assets])
+
     useEffect(() => {
         if (account.user_id) {
             getAssetsByUserId(account.user_id);
@@ -16,22 +20,21 @@ export default function MyWallet(){
 
     
     const getAssetsByUserId = async (user_id) => {
-        console.log(getAssetsByUserId)
         if (user_id) {
             const res = await fetch(`/api/wallet?user_id=${user_id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
             const wallet = await res.json();
-            setAssets(wallet);
+            // setAssets(wallet);
         }
     }
 
 
     return(
     <Dashboard>
-        <DoughnutAssets assets={assets}/>
-        <Wallet assets={assets}/>
+        {/* <DoughnutAssets assets={assets}/>
+        <Wallet assets={assets}/> */}
     </Dashboard>
     )
 }

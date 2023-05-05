@@ -14,7 +14,7 @@ export default function Asset(props) {
         }
         return false;
     }
-    console.log("props : ", props)
+
     const asset = props.asset;
     return (
         <>
