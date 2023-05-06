@@ -110,7 +110,7 @@ const getBasePNLByBot = (bot) => {
   });
   pnl = (current_amount - base_amount);
   pnlPercent = (pnl / base_amount) * 100;
-  return {current_amount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
+  return {startAmount : base_amount, currentAmount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
 };
 
 const getQuotePNLByBot = (bot) => {
@@ -132,13 +132,19 @@ const getQuotePNLByBot = (bot) => {
   });
   pnl = (current_amount - quote_amount);
   pnlPercent = (pnl / quote_amount) * 100;
-  return {current_amount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
+  return {startAmount : quote_amount, currentAmount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
 };
 
-const addPNLByBotId = (bot) => {
+const addPNLByBotId = (bot, assetType) => {
   // test avec le base pnl
-  bot.pnl = { base: getBasePNLByBot(bot), quote: getQuotePNLByBot(bot) };
-  return bot;
+  let pnl = [];
+  if(assetType=='base'){
+     pnl = getBasePNLByBot(bot);
+  };
+  if(assetType=='quote'){
+     pnl = getQuotePNLByBot(bot);
+  }
+  return pnl;
 }
 
 
