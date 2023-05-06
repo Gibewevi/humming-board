@@ -1,3 +1,42 @@
+
+- Récupère tous les assets par user_id
+- Récupère tous les bots par user_id
+- Récupère tous les ordres par bots dans bot.orders
+- Parcours tous les Bots
+    - calcul des PNL 
+    - Créé localbot et insérer dans botsArray
+- insère dans le wallet
+    -> chaque asset avec ses bots
+
+
+
+- Récupère tous les bots avec leurs ordres dans bot.orders => bots = [{bot : bot.orders},{bot : bot.orders}];
+- Parcours tous les bots 
+    * calcul des PNL botController.getPNLByBotId(bot);
+    * stock les parametres dans chaque bot
+
+- Retourne le wallet
+    * Parcours chaque bot 
+        * Si pair existe
+            -> insérer le bot dans la pair
+        * sinon
+            -> créé la pair dans assets
+            -> insère le bot dedans
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ROADMAP
     --> wallet 
         * correction des anomalies PNL

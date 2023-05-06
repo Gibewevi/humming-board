@@ -5,7 +5,6 @@ export default function Asset(props) {
 
     const handleBotsDetails = () => {
         setIsOpen(!isOpen);
-        console.log(isOpen);
     };
 
     const isPair = (number) => {
@@ -14,8 +13,9 @@ export default function Asset(props) {
         }
         return false;
     }
-    console.log("props : ", props)
+
     const asset = props.asset;
+
     return (
         <>
             <div className="flex flex-col gap-y-3 mt-3">
@@ -24,16 +24,16 @@ export default function Asset(props) {
                         <img src='CarbonCaretRight.svg' className={`${isOpen ? 'rotate-90' : 'rotate-0'} transition duration-150 ease-in w-[20px]`} onClick={handleBotsDetails} />
                         {asset.pair}
                     </li>
-                    <li className="w-full">{asset.start_amount}</li>
-                    <li className="w-full">{asset.current_amount}</li>
-                    <li className={`${asset.PNL > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{asset.PNL}</li>
-                    <li className={`${asset.PNLPercent > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{asset.PNLPercent}%</li>
+                    <li className="w-full">{asset.startAmount}</li>
+                    <li className="w-full">{asset.currentAmount}</li>
+                    <li className={`${asset.pnl > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{asset.pnl}</li>
+                    <li className={`${asset.pnlPercent > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{asset.pnlPercent}%</li>
                 </div>
                 {isOpen &&
                     <div className="flex flex-col gap-y-3">
                         {asset.bots.map((bot, key) => {
                             return (
-                                <div className={`${isPair(key) ? '' : ''} flex flex-row list-none text-sm text-[#4F4F4F] p-1 hover:bg-[#151719] hover:text-white `}>
+                                <div key={key} className={`${isPair(key) ? '' : ''} flex flex-row list-none text-sm text-[#4F4F4F] p-1 hover:bg-[#151719] hover:text-white `}>
                                     <li className="w-full flex flex-row">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" className="fill-[#4F4F4F] hover:fill-white">
                                             <path className="" d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68ZM16 25c-5.3 0-10.9-3.93-12.93-9C5.1 10.93 10.7 7 16 7s10.9 3.93 12.93 9C26.9 21.07 21.3 25 16 25Z" />
@@ -41,10 +41,10 @@ export default function Asset(props) {
                                         </svg>
 
                                         <span className="ml-5">bot:{bot.id}</span></li>
-                                    <li className="w-full">{bot.amount}</li>
-                                    <li className="w-full">{bot.currentAmount}</li>
-                                    <li className={`${bot.PNL > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{bot.PNL}</li>
-                                    <li className={`${bot.PNLPercent > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{bot.PNLPercent}%</li>
+                                    <li className="w-full">{bot.pnl.startAmount}</li>
+                                    <li className="w-full">{bot.pnl.currentAmount}</li>
+                                    <li className={`${bot.pnl.pnl > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{bot.pnl.pnl}</li>
+                                    <li className={`${bot.pnl.pnlPercent > 0 ? 'text-green-400' : 'text-red-400'} w-full`}>{bot.pnl.pnlPercent}%</li>
                                 </div>
                             )
                         })}

@@ -48,7 +48,7 @@ export default function DoughnutAssets(props) {
 
     const chartDatas = props.assets.map((asset, key) => {
         chartData.labels.push(asset.pair);
-        chartData.dataSets_data.push(asset.current_amount);
+        chartData.dataSets_data.push(asset.currentAmount);
         chartData.backgroundColor.push(getRandomColorInRange('#1A1D1F', 40));
         chartData.hoverBackgroundColor.push(getHoverColor(chartData.backgroundColor[key], 5));
     });

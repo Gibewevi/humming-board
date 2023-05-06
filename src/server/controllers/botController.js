@@ -102,17 +102,15 @@ const getBasePNLByBot = (bot) => {
   bot.orders.forEach((order, key) => {
     if (order.trade_type === 'SELL') {
       const orderAmount = parseFloat(order.amount);
-      const orderPrice = parseInt(order.price);
-      current_amount += order.amount * order.price;
+      current_amount -=  orderAmount;
     } else if (order.trade_type === 'BUY') {
       const orderAmount = parseFloat(order.amount);
-      const orderPrice = parseInt(order.price);
-      current_amount -= order.amount * order.price;      
+      current_amount += orderAmount; 
     }
   });
   pnl = (current_amount - base_amount);
   pnlPercent = (pnl / base_amount) * 100;
-  return [current_amount.toFixed(2), pnl.toFixed(2), pnlPercent.toFixed(2)];
+  return {startAmount : base_amount, currentAmount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
 };
 
 const getQuotePNLByBot = (bot) => {
@@ -124,24 +122,33 @@ const getQuotePNLByBot = (bot) => {
   bot.orders.forEach((order, key) => {
     if (order.trade_type === 'BUY') {
       const orderAmount = parseFloat(order.amount);
-      const orderPrice = parseInt(order.price);
-      current_amount += order.amount * orderPrice;
+      const orderPrice = parseFloat(order.price);
+      current_amount -= (orderAmount*orderPrice);
     } else if (order.trade_type === 'SELL') {
       const orderAmount = parseFloat(order.amount);
-      const orderPrice = parseInt(order.price);
-      current_amount -= order.amount * orderPrice;      
+      const orderPrice = parseFloat(order.price);
+      current_amount += (orderAmount*orderPrice);  
     }
   });
   pnl = (current_amount - quote_amount);
   pnlPercent = (pnl / quote_amount) * 100;
-  return [current_amount.toFixed(2), pnl.toFixed(2), pnlPercent.toFixed(2)];
+  return {startAmount : quote_amount, currentAmount : current_amount.toFixed(2), pnl : pnl.toFixed(2), pnlPercent : pnlPercent.toFixed(2)};
 };
 
-const getPNLByBotId = (bot) => {
+const addPNLByBotId = (bot, assetType) => {
   // test avec le base pnl
-  const PNL = { base: getBasePNLByBot(bot), quote: getQuotePNLByBot(bot) };
-  return PNL;
+  let pnl = [];
+  if(assetType=='base'){
+     pnl = getBasePNLByBot(bot);
+  };
+  if(assetType=='quote'){
+     pnl = getQuotePNLByBot(bot);
+  }
+  return pnl;
 }
+
+
+
 
 export const botController = {
   getBotsByUserID,
@@ -153,5 +160,5 @@ export const botController = {
   createBot,
   getAssetsFromBotId,
   createBotWithCSV,
-  getPNLByBotId
+  addPNLByBotId
 }

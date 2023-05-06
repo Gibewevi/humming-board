@@ -58,14 +58,52 @@ const insertOrders = async (trades, bot_id) => {
     }
 }
 
-const getOrdersbyBotsId = async(bots) => {
+
+const getBotsAndOrders = async (user_id) => {
+    let client;
+    try {
+      client = await pool.connect();
+      await client.query('BEGIN');
+      const req = 'SELECT bots.*, orders.* FROM bots JOIN orders ON bots.id = orders.bot_id WHERE bots.user_id = $1';
+      const { rows } = await client.query(req, [user_id]);
+      await client.query('COMMIT');
+  
+      const botsWithOrders = rows.reduce((acc, row) => {
+        const { id, bot_id, timestamp, trade_type, order_type, price, amount, leverage, ...botData } = row;
+  
+        const existingBotIndex = acc.findIndex(bot => bot.id === bot_id);
+  
+        if (existingBotIndex !== -1) {
+          acc[existingBotIndex].orders.push({ id, timestamp, trade_type, order_type, price, amount, leverage });
+        } else {
+          acc.push({
+            ...botData,
+            id: bot_id,
+            orders: [{ id, timestamp, trade_type, order_type, price, amount, leverage }]
+          });
+        }
+  
+        return acc;
+      }, []);
+  
+      const result = Object.values(botsWithOrders);
+  
+      return result;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      client.release();
+    }
+  };
+  
+const getOrdersbyBotsId = async (bots) => {
     let client;
     let botsResult = bots;
     try {
         client = await pool.connect();
         await client.query('BEGIN');
         const req = 'SELECT * FROM orders WHERE bot_id = $1';
-        for(const bot of bots){
+        for (const bot of botsResult) {
             const value = [bot.id];
             const res = await client.query(req, value);
             bot.orders = res.rows;
@@ -79,7 +117,7 @@ const getOrdersbyBotsId = async(bots) => {
 }
 
 
-const getOrdersByBotId = async(bot_id) => {
+const getOrdersByBotId = async (bot_id) => {
     let client;
     try {
         client = await pool.connect();
@@ -89,7 +127,7 @@ const getOrdersByBotId = async(bot_id) => {
             bot_id
         ]
         const res = await client.query(req, value);
-        return res.rows ;
+        return res.rows;
     } catch (error) {
         console.error(error);
     } finally {
@@ -114,7 +152,7 @@ const getAssetsFromBotId = async (bot_id) => {
             client.release();
         }
     }
-  }
+}
 
 const getBotsByUserId = async (user_id) => {
     const bots = [];
@@ -126,7 +164,7 @@ const getBotsByUserId = async (user_id) => {
         const value = [user_id];
         const res = await client.query(req, value);
         const bots = res.rows;
-        return bots ;
+        return bots;
     } catch (error) {
         console.error(error);
     } finally {
@@ -141,4 +179,5 @@ export const botModel = {
     getAssetsFromBotId,
     insertBot,
     insertOrders,
+    getBotsAndOrders
 }
