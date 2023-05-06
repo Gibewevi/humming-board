@@ -15,7 +15,6 @@ export default function Asset(props) {
     }
 
     const asset = props.asset;
-
     return (
         <>
             <div className="flex flex-col gap-y-3 mt-3">

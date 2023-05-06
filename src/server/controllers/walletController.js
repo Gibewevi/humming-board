@@ -47,7 +47,7 @@ const createAsset = (pair) => {
 }
 
 const updateAssetsWallet = (wallet, bots) => {
-    wallet.map((asset) => {
+    wallet.map((asset,key) => {
         bots.forEach((bot) => {
             let localBot, assetType;
 
@@ -62,7 +62,7 @@ const updateAssetsWallet = (wallet, bots) => {
             localBot = createLocalBot(bot, assetType);
             asset.bots.push(localBot);
             asset.startAmount += parseFloat(localBot.pnl.startAmount);
-            asset.currentAmount = (parseFloat(localBot.pnl.startAmount) + (parseFloat(localBot.pnl.currentAmount) - parseFloat(localBot.pnl.startAmount))).toFixed(2);
+            asset.currentAmount += parseFloat(localBot.pnl.startAmount) + parseFloat((localBot.pnl.currentAmount - localBot.pnl.startAmount).toFixed(2));
             asset.pnl = (asset.currentAmount - asset.startAmount).toFixed(2);
             asset.pnlPercent = ((asset.pnl / asset.startAmount) * 100).toFixed(2);
         });
