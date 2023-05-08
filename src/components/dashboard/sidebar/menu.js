@@ -1,5 +1,9 @@
 import Link from "next/link"
+import { AuthContext } from "@/context/AuthProvider";
+import { useContext } from "react";
+
 export default function Menu(props) {
+    const { account } = useContext(AuthContext);
 
     return (
         <Link href={props.link}>
