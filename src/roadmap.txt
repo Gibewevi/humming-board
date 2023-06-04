@@ -1,39 +1,52 @@
 
-- Récupère tous les assets par user_id
-- Récupère tous les bots par user_id
-- Récupère tous les ordres par bots dans bot.orders
-- Parcours tous les Bots
-    - calcul des PNL 
-    - Créé localbot et insérer dans botsArray
-- insère dans le wallet
-    -> chaque asset avec ses bots
+	// const symbol = 'ETHUSDT';
+	// const interval = '1h';
+	// const now = new Date().getTime();
+	// const one_day = 24 * 60 * 60 * 1000; // 1 jour en millisecondes
+	
+	// const startTime = Math.floor(Math.random() * (now - one_day) + one_day).toString();
+	// const endTime = now.toString();
+	// console.log('start : ', startTime);
+	// console.log('endTime : ', endTime);
+	// const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&startTime=${startTime}&endTime=${endTime}&limit=1000`;
+	// const res = await fetch(url, {
+	// 	method:'GET',
+	// 	headers: { 'Content-Type': 'application/json' },
+	// });https://www.chartjs.org/docs/latest/charts/scatter.html
+	// const data = await res.json();
+	// console.log(data);
 
-
-
-- Récupère tous les bots avec leurs ordres dans bot.orders => bots = [{bot : bot.orders},{bot : bot.orders}];
-- Parcours tous les bots 
-    * calcul des PNL botController.getPNLByBotId(bot);
-    * stock les parametres dans chaque bot
-
-- Retourne le wallet
-    * Parcours chaque bot 
-        * Si pair existe
-            -> insérer le bot dans la pair
-        * sinon
-            -> créé la pair dans assets
-            -> insère le bot dedans
+Bot[ID]
+    * Récupèrer le bot avec tous les ordres
     
 
 
 
+Prochaine update
+    --> wallet
+        * correction de la connexion Metasmask requise
+        * revoir calcule repartition donuts (amount*price);
+        * charts (base vs quote);
+    --> bots
+        * mettre en place la page bot [slug]
+        * chart avec candle avec orders/PNL global (avec un switch orders/pnl)
+        * pannel bot détails
+        * orders list
+            -->  doughnutAsset BUY/SELL
+        * chart PNL (base/quote/global)
+        * chart fees
+        * espace market bot similar
+        
+Patch note 0.1
 
-
-
-
-
-
-
-
+    --> wallet 
+        * correction des anomalies PNL
+        * correction de la connexion Metasmask requise
+        * Ajout bouton consulter
+        * Ajout effect accordéon
+        * Ajout front-end (couleurs BG + hover)
+        * chart.JS pour la répartition du wallet
+        * charts (base vs quote);
 
 
 

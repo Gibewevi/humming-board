@@ -5,10 +5,6 @@ import detectEthereumProvider from '@metamask/detect-provider';
 function AuthProvider(props) {
     const [account, setAccount] = useState();
 
-    useEffect(()=> {
-        console.log('account AUTH : ',account);        
-    },[account]);
-
     useEffect(() => {
         async function checkMetaMaskAuthentication() {
             const provider = await detectEthereumProvider();

@@ -1,36 +1,29 @@
 import Wallet from "@/components/mywallet/Wallet"
 import Dashboard from "@/containers/Dashboard"
 import DoughnutAssets from "@/components/mywallet/DoughnutAssets"
-import { useState } from "react";
-import { AuthContext } from "@/context/AuthProvider";
-import { useContext, useEffect } from "react";
-export default function MyWallet(){
-    const [wallet, setWallet] = useState([]);
-    const { account } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (account.user_id) {
-            getAssetsByUserId(account.user_id);
-        }
-    }, [account.user_id]);
+export default function MyWallet({ wallet }) {
 
-    
-    const getAssetsByUserId = async (user_id) => {
-        if (user_id) {
-            const res = await fetch(`/api/wallet?user_id=${user_id}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            });
-            const wallet = await res.json();
-            setWallet(wallet);
-        }
-    }
+	return (
+		<Dashboard>
+			<DoughnutAssets assets={wallet} />
+			<Wallet assets={wallet} />
+		</Dashboard>
+	)
+};
 
+export async function getServerSideProps(context) {
+	const user_id = context.query.user_id;
+	let wallet;
+	if (user_id) {
+		const API_URL = "http://localhost:3000";
+		const res = await fetch(`${API_URL}/api/wallet?user_id=${user_id}`, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' },
+		});
+		wallet = await res.json();
+	}
 
-    return(
-    <Dashboard>
-        <DoughnutAssets assets={wallet}/>
-        <Wallet assets={wallet}/>
-    </Dashboard>
-    )
+	return { props: { wallet } };
 }
+
