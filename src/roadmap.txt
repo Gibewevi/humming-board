@@ -1,20 +1,49 @@
 
-	// const symbol = 'ETHUSDT';
-	// const interval = '1h';
-	// const now = new Date().getTime();
-	// const one_day = 24 * 60 * 60 * 1000; // 1 jour en millisecondes
-	
-	// const startTime = Math.floor(Math.random() * (now - one_day) + one_day).toString();
-	// const endTime = now.toString();
-	// console.log('start : ', startTime);
-	// console.log('endTime : ', endTime);
-	// const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&startTime=${startTime}&endTime=${endTime}&limit=1000`;
-	// const res = await fetch(url, {
-	// 	method:'GET',
-	// 	headers: { 'Content-Type': 'application/json' },
-	// });https://www.chartjs.org/docs/latest/charts/scatter.html
-	// const data = await res.json();
-	// console.log(data);
+
+
+[2,7,11,15]
+
+-- parcours tous les numbers
+    tente la combinaison number + [numbers de tout le tableau]
+    if result = target
+    return l'index de chaque valeur
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+  [
+    1499040000000,      // Kline open time
+    "0.01634790",       // Open price
+    "0.80000000",       // High price
+    "0.01575800",       // Low price
+    "0.01577100",       // Close price
+    "148976.11427815",  // Volume
+    1499644799999,      // Kline Close time
+    "2434.19055334",    // Quote asset volume
+    308,                // Number of trades
+    "1756.87402397",    // Taker buy base asset volume
+    "28.46694368",      // Taker buy quote asset volume
+    "0"                 // Unused field, ignore.
+  ]
+]
 
 Bot[ID]
     * Récupèrer le bot avec tous les ordres
